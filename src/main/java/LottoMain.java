@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class LottoMain {
 
@@ -9,14 +6,21 @@ public class LottoMain {
     private static final int MAX_NUMBER = 45; // 로또 번호 1~45
 
     private static List<Integer> generateLottoNumbers() {
-        Random random = new Random();
-        List<Integer> lottoNumbers = new ArrayList<>(LOTTO_NUMBER_COUNT);
-        for(int i=0;i<LOTTO_NUMBER_COUNT;i++){
-            int number = random.nextInt(MAX_NUMBER)+1;
-            if(!lottoNumbers.contains(number)){
-                lottoNumbers.add(number);
-            }
+        // 1~45 수를 담은 리스트 생성
+        List<Integer> numbers = new ArrayList<>();
+        for(int i=0;i<MAX_NUMBER;i++){
+            numbers.add(i);
         }
+
+        // shuffle 해주고
+        Collections.shuffle(numbers);
+
+        // 앞에 6개 숫자 고르기 + 오름차순
+        List<Integer> lottoNumbers = new ArrayList<>();
+        for(int i=0;i<LOTTO_NUMBER_COUNT;i++){
+            lottoNumbers.add(numbers.get(i));
+        }
+        Collections.sort(lottoNumbers);
 
         return lottoNumbers;
     }
@@ -40,12 +44,11 @@ public class LottoMain {
 
         int number = price/1000; // 로또 장수
 
-        System.out.println(number+"개를 구매했습니다.");
+        System.out.println("\n"+ number+"개를 구매했습니다.");
 
         while(number-- > 0) {
             List<Integer> lottoNumbers = generateLottoNumbers();
             printLottoNumbers(lottoNumbers);
         }
     }
-
 }
