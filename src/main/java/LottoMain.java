@@ -5,10 +5,10 @@ import java.util.*;
 
 public class LottoMain {
 
-    private static final int LOTTO_NUMBER_COUNT = 6; // 로또 장당 번호 6개
-    private static final int MAX_NUMBER = 45; // 로또 번호 1~45
-    private static int price = 0;
-    private static int profit = 0;
+    private static final Integer LOTTO_NUMBER_COUNT = 6; // 로또 장당 번호 6개
+    private static final Integer MAX_NUMBER = 45; // 로또 번호 1~45
+    private static Integer price = 0;
+    private static Integer profit = 0;
     private static final List<Integer> lastNumberList = new ArrayList<>();
     private static final Map<Integer,Integer> result = new LinkedHashMap<>();
 
@@ -41,18 +41,14 @@ public class LottoMain {
     private static List<Integer> generateLottoNumbers() {
         // 1~45 수를 담은 리스트 생성
         List<Integer> numbers = new ArrayList<>();
-        for(int i=1;i<=MAX_NUMBER;i++){
+        for(Integer i=1;i<=MAX_NUMBER;i++){
             numbers.add(i);
         }
 
         // shuffle 해주고
         Collections.shuffle(numbers);
-
         // 앞에 6개 숫자 고르기 + 오름차순
-        List<Integer> lottoNumbers = new ArrayList<>();
-        for(int i=0;i<LOTTO_NUMBER_COUNT;i++){
-            lottoNumbers.add(numbers.get(i));
-        }
+        List<Integer> lottoNumbers = new ArrayList<>(numbers.subList(0,LOTTO_NUMBER_COUNT));
         Collections.sort(lottoNumbers);
 
         return lottoNumbers;
@@ -73,7 +69,7 @@ public class LottoMain {
     private static void printResult() {
         System.out.println("\n당첨 통계");
         System.out.println("--------");
-        int init = 3;
+        Integer init = 3;
         for(Map.Entry<Integer,Integer> entry : result.entrySet()) {
             System.out.println(init+"개 일치 ("+ entry.getKey() +")- " + entry.getValue()+"개");
             profit = profit + (entry.getKey() * entry.getValue());
@@ -82,8 +78,8 @@ public class LottoMain {
         System.out.println("총 수익률은 " + calculateProfitRatio() + "입니다. (기준이 1이기 때문에 결과적으로 손해라는 의미임)");
     }
 
-    private static double calculateProfitRatio() {
-        if(profit == 0) return 0;
+    private static Double calculateProfitRatio() {
+        if(profit == 0) return 0.0;
         return (double) profit / price;
     }
 
@@ -93,7 +89,7 @@ public class LottoMain {
         System.out.println("구입금액을 입력해 주세요.");
         price = Integer.parseInt(br.readLine());
 
-        int number = price/1000; // 로또 장수
+        Integer number = price/1000; // 구매한 로또 장수
         System.out.println("\n"+ number+"개를 구매했습니다.");
 
         List<List<Integer>> myLottos = new ArrayList<>();
