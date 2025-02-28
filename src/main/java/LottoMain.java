@@ -32,24 +32,18 @@ public class LottoMain {
         System.out.println("보너스 볼을 입력해주세요.");
         bonusNumber = Integer.parseInt(br.readLine());
 
-        // 통계내기
-        // LottoTickets 에 담긴 얘들을 통계내서 LottoResult 에 담아야한다.
+        // 통계 객체 생성
+        LottoResults results = new LottoResults();
 
-
+        // 로또 결과 계산
         for(LottoTicket lottoTicket : lottoTickets.getLottoTickets()) {
             int cnt = lottoTicket.countMatchingNumbers(lastNumberList);
-            // LottoResult 에 담기
-            if (lottoTicket.isBonusCorrect(bonusNumber)) {
-
-            }
-            LottoResult lottoResult = new LottoResult()
-
+            boolean isBonus = lottoTicket.isBonusCorrect(bonusNumber);
+            results.addResult(cnt, isBonus);
         }
 
-
-        results.initLottoResults();
+        // 결과 출력
         results.printLottoResults();
-
-        printResult(lottoTickets);
+        results.printCalculateProfitRatio(price);
     }
 }
