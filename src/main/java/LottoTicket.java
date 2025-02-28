@@ -15,6 +15,16 @@ public class LottoTicket {
         return Collections.unmodifiableList(myLotto);
     }
 
+    // number : 구매한 복권 장수
+    public static LottoTickets buyLottoTickets(int number) {
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+        for(int i=0;i<number;i++){
+            lottoTickets.add(generate());
+        }
+        return new LottoTickets(lottoTickets);
+    }
+
+    // generate() 하면 하나의 LottoTicket 이 생성된다.
     public static LottoTicket generate(){
         // 1~45 수를 담은 리스트 생성
         List<Integer> numbers = new ArrayList<>();
@@ -34,5 +44,11 @@ public class LottoTicket {
             if(myLotto.contains(num)) cnt++;
         }
         return cnt;
+    }
+
+    // 보너스 번호 일치하는지 확인
+    public boolean isBonusCorrect(Integer bonus){
+        if(myLotto.contains(bonus)) return true;
+        return false;
     }
 }

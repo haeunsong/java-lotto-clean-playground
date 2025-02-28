@@ -1,3 +1,5 @@
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoTickets {
@@ -7,6 +9,7 @@ public class LottoTickets {
     public LottoTickets(List<LottoTicket> myLottos) {
         this.myLottos = myLottos;
     }
+
 
     public void printAllMyLottos() {
         for (LottoTicket lottoTicket : myLottos) {
